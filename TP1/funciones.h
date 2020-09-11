@@ -1,7 +1,7 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
 
-int menu(void);
+int menu(int ,int, int , int );
 
 int add(int,int);
 
@@ -11,9 +11,6 @@ int multiply(int, int);
 
 float divide(int,int);
 
-int factorial(int);
+long long int factorial(int);
 
-int IngresoValidado(int);
-
-int validarOperandoosIngresado(int,int);
 #endif // FUNCIONES_H_INCLUDED

@@ -4,65 +4,99 @@
 #include "funciones.h"
 int main()
 {
-    int operando1 = NULL;
-    int operando2 = NULL;
-    int resultadoSuma;
-    int resultadoResta;
-    int resultadoMultiplicacion;
-    int operacionesRealizadas = 0;
-    float resultadoDivision;
-    int resultadoFactorialOp = 0;
-
+    int operandA = 0;
+    int operandB = 0;
+    int resultsAdd;
+    int resultsSubtract;
+    int resultsMultiply;
+    float resultsDevide ;
+    long long int resultFactorial;
+    int operationsMadeFlag = 0;
+    int hasValueOperandA = 0;
+    int hasValueOperandB = 0;
     int opcion ;
-    opcion = menu();
+    opcion = menu(hasValueOperandA,hasValueOperandB,operandA, operandB);
     do
     {
         switch(opcion)
         {
-            case 1:
-                operando1 = IngresoValidado(0);
-                // si cambio algun operando, tengo que volver a realizar las operaciones
-                operacionesRealizadas = 0;
-                break;
-            case 2:
-                operando2 = IngresoValidado(1);
-                // si cambio algun operando, tengo que volver a realizar las operaciones
-                operacionesRealizadas = 0;
-                break;
-            case 3:
-                if(validarOperandoosIngresado(operando1,operando2) )
+        case 1:
+            printf("Ingrese el operando A\n");
+            scanf("%d", &operandA);
+            // si cambio algun operando, tengo que volver a realizar las operaciones
+            operationsMadeFlag = 0;
+            hasValueOperandA = 1;
+            break;
+        case 2:
+            printf("Ingrese el operando B \n");
+            scanf("%d", &operandB);
+            hasValueOperandB = 1;
+            // si cambio algun operando, tengo que volver a realizar las operaciones
+            operationsMadeFlag = 0;
+            break;
+        case 3:
+            if( hasValueOperandA && hasValueOperandB )
+            {
+                resultsAdd = add(operandA, operandB);
+                resultsSubtract = substract(operandA, operandB);
+                resultsMultiply = multiply(operandA, operandB);
+                if( operandB != 0)
                 {
-                    resultadoSuma = add(operando1, operando2);
-                    resultadoResta = substract(operando1, operando2);
-                    resultadoMultiplicacion = multiply(operando1, operando2);
-                    resultadoDivision = divide(operando1, operando2);
-                    resultadoFactorialOp = factorial(operando1);
-                    operacionesRealizadas = 1;
+                resultsDevide = divide(operandA, operandB);
                 }
-                break;
-            case 4:
-                if(validarOperandoosIngresado(operando1,operando2) )
+                else
                 {
-                    if(operacionesRealizadas)
-                    {
-                        printf("resultado suma entre %d, %d es: %d \n", operando1, operando2, resultadoSuma);
-                        printf("resultado resta entre %d, %d es: %d \n", operando1, operando2, resultadoResta);
-                        printf("resultado multiplicacón entre %d, %d es: %d \n", operando1, operando2, resultadoMultiplicacion);
-                        printf("resultado division entre %d, %d es: %.2f \n", operando1, operando2, resultadoDivision);
-                        printf("resultado factorial operando A %d es %d \n", operando1, resultadoFactorialOp);
-                    }
-                    else
-                    {
-                        printf("Primero debe realizar las operaciones \n");
-                    }
+                    printf("No se puede divir por 0 \n");
                 }
-                break;
+                if( operandA >= 0)
+                {
+                    resultFactorial = factorial(operandA);
+                }
+                else
+                {
+                    printf("El operado tiene que ser positivo para hacer el factorial \n");
+                }
+                operationsMadeFlag = 1;
+                printf("Operaciones realizadas \n");
+            }
+            else
+            {
+                printf("Debe ingresar los operandos A y B \n");
+            }
+            break;
+
+        case 4:
+            if( hasValueOperandA && hasValueOperandB  )
+            {
+                if(!operationsMadeFlag)
+                {
+                    printf("Primero deber realizar las operaciones\n");
+                    break;
+                }
+                printf("resultado suma entre %d, %d es: %d \n", operandA, operandB, resultsAdd);
+                printf("resultado resta entre %d, %d es: %d \n", operandA, operandB, resultsSubtract);
+                printf("resultado multiplicacón entre %d, %d es: %d \n", operandA, operandB, resultsMultiply);
+                if( operandB != 0 )
+                {
+                    printf("resultado division entre %d, %d es: %.2f \n", operandA, operandB, resultsDevide);
+                }
+                if(operandA >= 0)
+                {
+                    printf("resultado factorial operando A %d es %d \n", operandA, resultFactorial);
+                }
+            }
+            else
+            {
+                printf("Debe ingresar los operandos A y B \n");
+            }
+            break;
         }
         system("pause");
         system("cls");
-        opcion = menu();
+        // tengo que usar banderas, xq nose cuando sale del scanf del switch las  variable de los operados pierde el valor
+        opcion = menu(hasValueOperandA,hasValueOperandB,operandA, operandB);
     }
-    while(opcion != 5);
+    while( opcion != 5);
     return 0;
 
 }

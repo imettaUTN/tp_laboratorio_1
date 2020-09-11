@@ -1,12 +1,29 @@
 # depslib dependency file v1.0
-1599534560 source:c:\programacion1\tp1\src\funciones.c
+1599775222 source:c:\programacion1\tp1\src\funciones.c
 	<stdio.h>
 
-1599534658 source:c:\programacion1\tp1\main.c
+1599775243 source:c:\programacion1\tp1\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
 	"funciones.h"
 
-1599534700 c:\programacion1\tp1\funciones.h
+1599775331 c:\programacion1\tp1\funciones.h
+
+1599800276 source:c:\programacion1\tp\tp_laboratorio_1\tp1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"funciones.h"
+
+1599799553 c:\programacion1\tp\tp_laboratorio_1\tp1\funciones.h
+
+1599799596 source:c:\programacion1\tp\tp_laboratorio_1\tp1\src\funciones.c
+	<stdio.h>
+	<stddef.h>
+
+1599799332 source:c:\programacion1\tp\tp_laboratorio_1\tp1\src\validaciones.c
+	<stdio.h>
+
+1599799341 c:\programacion1\tp\tp_laboratorio_1\tp1\validadaciones.h
 

@@ -6,6 +6,10 @@
 #include "menus.h"
 #define TRUE 1
 #define FALSE 0
+
+
+
+
 int menu(int hasValueOp1)
 {
     int opcion  = 0;
@@ -22,11 +26,7 @@ int menu(int hasValueOp1)
 
         }
         first = FALSE;
-        printf("1. ALTA \n");
-        printf("2. MODIFICAR \n");
-        printf("3. BAJA \n");
-        printf("4. INFORMAR: \n");
-        printf("5. EXIT: \n");
+        printf("");
         scanf("%d", &opcion);
 
         if(opcion > 1 && opcion < 5 && !hasValueOp1)
@@ -54,9 +54,7 @@ int subMenuInformar()
         }
         else
         {
-            printf("Ingrese la operacion a realizar :\n");
-            printf("1. Listado de los empleados ordenados alfabeticamente por Apellido y Sector\n");
-            printf("2. Total y promedio de los salarios, y cúantos empleados superan el salario promedio\n");
+            printf("");
 
         }
         first = FALSE;
@@ -65,29 +63,6 @@ int subMenuInformar()
     }
     while(opcion < 1 || opcion > 2);
 
-    return opcion;
-}
-
-int subMenuModify()
-{
-    int opcion  = 0;
-    int first = TRUE;
-    do
-    {
-        if(!first)
-        {
-            printf("invalid option. Please re - enter");
-        }
-        first = FALSE;
-        printf("1 .Change Name\n");
-        printf("2. Change lastName \n");
-        printf("3. change Salary \n");
-        printf("4. change Sector: \n");
-        printf("5. exit: \n");
-        scanf("%d", &opcion);
-
-    }
-    while(opcion < 0 || opcion > 5);
     return opcion;
 }
 

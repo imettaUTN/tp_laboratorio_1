@@ -3,7 +3,6 @@
 #include <ctype.h>
 #include <string.h>
 #include "ArrayEmployees.h"
-#include "menus.h"
 #include "common.h"
 #define TRUE 1
 #define FALSE 0
@@ -62,6 +61,7 @@ int addEmployee(Employee list[], int len, int id)
     int isOk = validateArray(list,len);
     if(isOk)
     {
+        printf("Alta empleado :\n");
         char  name[MAXLENGHSTRING];
         char  lastName[MAXLENGHSTRING];
         float salary;
@@ -94,18 +94,10 @@ int addEmployee(Employee list[], int len, int id)
             gets(lastName);
         }
         while(!isValidReturnedFunctionValue(stringValidation(lastName)));
-
-        first= TRUE;
-
         do
         {
-            if(!first)
-            {
-                printf("Error , re-enter");
-            }
-            first= FALSE;
             printf("Enter Salary \n");
-            scanf("%f",&salary);
+            common_getFloat(&salary,"Error, re-enter");
         }
         while(!isValidReturnedFunctionValue(salaryValidation(salary)));
 
@@ -270,7 +262,7 @@ int modifyEmployeeInformation(Employee * emp)
     int sector;
     int opc ;
 
-    opc = subMenuModify();
+    opc = common_getMenu("Ingrese que desea modificar:\n1.1 .Change Name\n2. Change lastName \n3. change Salary \n4. change Sector: \n5. exit: \n","opcion invalida",1,5,3);
     switch(opc)
     {
     case 1:
@@ -351,9 +343,9 @@ int sortEmployees(Employee  list[], int len, int orderCriter)
 {
     int isOk = validateArray(list,len);
 
-    if(numberOfEmployeesLoaded(list,len))
+    if(numberOfEmployeesLoaded(list,len) < 2)
     {
-
+        return almostMustBe2Emp;
     }
     if(isOk)
     {

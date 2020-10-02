@@ -13,25 +13,23 @@
 	<string.h>
 	"ArrayEmployees.h"
 
-1601603729 source:c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.c
+1601669491 source:c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
 	<string.h>
 	"ArrayEmployees.h"
-	"menus.h"
 	"common.h"
 
-1601601190 c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.h
+1601657291 c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.h
 
-1601603370 source:c:\programacion1\git\tp_laboratorio_1\tp2\main.c
+1601668800 source:c:\programacion1\git\tp_laboratorio_1\tp2\main.c
 	<stdio.h>
 	<stdlib.h>
 	"ArrayEmployees.h"
-	"menus.h"
 	"common.h"
 
-1601605588 source:c:\programacion1\git\tp_laboratorio_1\tp2\menus.c
+1601664005 source:c:\programacion1\git\tp_laboratorio_1\tp2\menus.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -39,13 +37,14 @@
 	"ArrayEmployees.h"
 	"menus.h"
 
-1601597452 c:\programacion1\git\tp_laboratorio_1\tp2\menus.h
+1601663816 c:\programacion1\git\tp_laboratorio_1\tp2\menus.h
 
-1601605740 c:\programacion1\git\tp_laboratorio_1\tp2\common.h
+1601669529 c:\programacion1\git\tp_laboratorio_1\tp2\common.h
 
-1601605542 source:c:\programacion1\git\tp_laboratorio_1\tp2\common.c
+1601669673 source:c:\programacion1\git\tp_laboratorio_1\tp2\common.c
 	<stdio.h>
 	<ctype.h>
 	<string.h>
+	<stdlib.h>
 	"common.h"
 

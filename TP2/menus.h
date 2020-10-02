@@ -10,13 +10,6 @@
 int menu(int);
 
 /** \brief
- * show modify sub menu
- * \return int option
- *
- */
-int subMenuModify();
-
-/** \brief
 * show informar sub menu
  * \return int option
  *

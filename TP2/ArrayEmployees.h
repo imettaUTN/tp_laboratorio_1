@@ -1,6 +1,5 @@
 #ifndef ARRAYEMPLOYEES_H_INCLUDED
 #define ARRAYEMPLOYEES_H_INCLUDED
-#define MAXLENGHSTRING 51
 struct
 {
     int id;
@@ -11,47 +10,152 @@ struct
     int isEmpty;
 }typedef Employee;
 
-enum Errors{nullPointer = -1,invalidLengt = -2,employeeNotFound =-3,InvalidIndex = -4 , invalidStringLengt =-5, invalidStringFormat = -6,generalError = -7, invalidSalary = -8, invalidID = -9};
 
-int salaryValidation(float salary);
-
-int StringValidation(char * str);
-
-int generalErrorValidation(int returnedValue);
-
+/** \brief validate an array
+ *
+ * \param list[] Employee
+ * \param len int lenght
+ * \return int  is valid TRUE / FALSE
+ *
+ */
 int validateArray(Employee list[], int len);
 
+/** \brief
+ * int list
+ * \param list[] Employee
+ * \param len int lenght
+ * \return int is valid TRUE / FALSE
+ *
+ */
 int initEmployees(Employee list[], int len);
 
+/** \brief
+ * add employee to list
+ * \param list[] Employee
+ * \param len int lenght
+ * \param id int
+ * \return int all ok TRUE / FALSE
+ *
+ */
 int addEmployee(Employee list[], int len, int id);
 
+/** \brief
+ * fin an employee by id
+ * \param list[] Employee
+ * \param len int lenght
+ * \param id int
+ * \return int all ok TRUE / FALSE
+ *
+ */
 int findEmployeeById(Employee list[], int len,int id);
 
+/** \brief
+ *fin next free position
+ * \param list[] Employee
+ * \param len int lenght
+ * \return int all ok TRUE / FALSE
+ *
+ */
 int findNextFreePosition(Employee list[], int len);
 
+/** \brief
+ * remove an employee of list
+ * \param list[] Employee
+ * \param len int lenght
+ * \return int free index on array list
+ *
+ */
 int removeEmployee(Employee list[], int len);
 
-int modifyEmployeeInformation(Employee * emp);
-
+/** \brief
+ * modify employes
+ * \param list[] Employee
+ * \param len int lenght
+ * \return int all ok TRUE / FALSE
+ *
+ */
 int modifyEmployee(Employee  list[], int len);
 
+/** \brief
+ * modify an employe infromation
+ * \param emp Employee*
+ * \return int all ok TRUE / FALSE
+ *
+ */
+int modifyEmployeeInformation(Employee * emp);
+
+/** \brief
+ * sort an employeed
+ * \param list[] Employee
+ * \param len int lenght
+ * \param order int criterio
+ * \return int TRUE / FALSE
+ *
+ */
+/** \brief
+ * sort employee by criterial
+ * \param list[] Employee
+ * \param len int lenght
+ * \param order int criterio
+ * \return int all ok TRUE / FALSE
+ *
+ */
 int sortEmployees(Employee list[], int len, int order);
 
+/** \brief
+ * make swap in array
+ * \param list[] Employee
+ * \param i int
+ * \param j int
+ * \return void
+ *
+ */
 void makeSwap(Employee list[], int i, int j);
 
+/** \brief
+ * print employees information
+ * \param list[] Employee
+ * \param length int
+ * \return int
+ *
+ */
 int printEmployees(Employee list[], int length);
 
+/** \brief
+ *print an employee information
+ * \param list[] Employee
+ * \param length int
+ * \param index int
+ * \return int
+ *
+ */
 int printEmployee(Employee  list[], int length ,int index);
 
-int menu(int);
-
-int subMenuOpc4();
-
-int order();
-
+/** \brief
+ * calculare total salaries
+ * \param list[] Employee
+ * \param length int
+ * \return float total salary
+ *
+ */
 float calculateTotalSalary(Employee list[], int length);
 
-float calculateAverageSalary(Employee list[], int length);
+/** \brief
+ * calculare average of salaries
+ * \param list[] Employee
+ * \param length int
+ * \return float average salaries
+ *
+ */
+float calculateAverageSalaries(Employee list[], int length);
 
+/** \brief
+ * calculate de count of employees salaries up average
+ * \param list[] Employee
+ * \param lenght int
+ * \param salaryAvg float
+ * \return int count employees up avg
+ *
+ */
 int amountOfEmployeesUpsAvg(Employee list[], int lenght , float  salaryAvg);
 #endif // ARRAYEMPLOYEES_H_INCLUDED

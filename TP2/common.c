@@ -7,7 +7,8 @@
 #define FALSE 0
 
 
-void validarOpcionesMenu(int *opcion, int hasValueOp1, char * msj)
+
+void common_validarOpcionesMenu(int *opcion, int hasValueOp1, char * msj)
 {
     if(*opcion > 1 && *opcion < 5 && !hasValueOp1)
     {
@@ -47,9 +48,9 @@ int common_getInt(int * pResultado, char * menssager)
     char buffer[5000];
     printf("%s\n",menssager);
     scanf("%s",buffer);
-    if(esNumero(buffer))
+    if(common_esNumero(buffer))
     {
-        if(get_index(buffer,'.') > 0)
+        if(common_get_index(buffer,'.') > 0)
         {
             printf("soy float");
             return FALSE;
@@ -65,7 +66,7 @@ int common_getFloat(float * pResultado, char * menssager)
     char buffer[5000];
     printf("%s\n",menssager);
     scanf("%s",buffer);
-    if(esNumero(buffer))
+    if(common_esNumero(buffer))
     {
         *pResultado = atof(buffer);
         return TRUE;
@@ -74,7 +75,7 @@ int common_getFloat(float * pResultado, char * menssager)
 }
 
 //Returns the index of the first occurence of char c in char* string. If not found -1 is returned.
-int get_index(char* string, char c)
+int common_get_index(char* string, char c)
 {
     char *e = strchr(string, c);
     if (e == NULL)
@@ -84,7 +85,7 @@ int get_index(char* string, char c)
     return (int)(e - string);
 }
 
-int esNumero(char *s)
+int common_esNumero(char *s)
 {
     int inicioAnalisis = 0;
     int cantPtos = FALSE;
@@ -114,11 +115,7 @@ int esNumero(char *s)
     }
     return TRUE;
 }
-
-
-
-
-int salaryValidation(float salary)
+int common_salaryValidation(float salary)
 {
 
     if(salary < 0)
@@ -128,7 +125,7 @@ int salaryValidation(float salary)
     return TRUE;
 }
 
-int idValidation(int id)
+int common_idValidation(int id)
 {
     if(id < 0)
     {
@@ -138,18 +135,18 @@ int idValidation(int id)
 }
 
 
-int numberValidation(int nro)
+int common_numberValidation(int nro)
 {
     while(!isdigit(nro))
     {
-        printf("%s\n",isValidReturnedFunctionValue(isNotNumber));
-        printf("%s\n",isValidReturnedFunctionValue(generalError));
+        printf("%s\n",common_isValidReturnedFunctionValue(isNotNumber));
+        printf("%s\n",common_isValidReturnedFunctionValue(generalError));
         scanf("%d",&nro);
     }
     return nro;
 }
 
-int stringValidation(char * str)
+int common_stringValidation(char * str)
 {
     if(strlen(str) <= MAXLENGHSTRING)
     {
@@ -173,7 +170,7 @@ int stringValidation(char * str)
     return TRUE;
 }
 
-int isValidReturnedFunctionValue(int value)
+int common_isValidReturnedFunctionValue(int value)
 {
     char * menssager = "";
     switch(value)

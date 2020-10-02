@@ -13,7 +13,7 @@
 	<string.h>
 	"ArrayEmployees.h"
 
-1601669491 source:c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.c
+1601671876 source:c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -23,7 +23,7 @@
 
 1601657291 c:\programacion1\git\tp_laboratorio_1\tp2\arrayemployees.h
 
-1601668800 source:c:\programacion1\git\tp_laboratorio_1\tp2\main.c
+1601671885 source:c:\programacion1\git\tp_laboratorio_1\tp2\main.c
 	<stdio.h>
 	<stdlib.h>
 	"ArrayEmployees.h"
@@ -39,9 +39,9 @@
 
 1601663816 c:\programacion1\git\tp_laboratorio_1\tp2\menus.h
 
-1601669529 c:\programacion1\git\tp_laboratorio_1\tp2\common.h
+1601671506 c:\programacion1\git\tp_laboratorio_1\tp2\common.h
 
-1601669673 source:c:\programacion1\git\tp_laboratorio_1\tp2\common.c
+1601671493 source:c:\programacion1\git\tp_laboratorio_1\tp2\common.c
 	<stdio.h>
 	<ctype.h>
 	<string.h>

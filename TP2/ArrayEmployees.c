@@ -79,7 +79,7 @@ int addEmployee(Employee list[], int len, int id)
             gets(name);
 
         }
-        while(!isValidReturnedFunctionValue(stringValidation(name)));
+        while(!common_isValidReturnedFunctionValue(common_stringValidation(name)));
 
         first= TRUE;
         do
@@ -93,13 +93,12 @@ int addEmployee(Employee list[], int len, int id)
             fflush(stdin);
             gets(lastName);
         }
-        while(!isValidReturnedFunctionValue(stringValidation(lastName)));
+        while(!common_isValidReturnedFunctionValue(common_stringValidation(lastName)));
         do
         {
-            printf("Enter Salary \n");
-            common_getFloat(&salary,"Error, re-enter");
+            common_getFloat(&salary,"Enter salary");
         }
-        while(!isValidReturnedFunctionValue(salaryValidation(salary)));
+        while(!common_isValidReturnedFunctionValue(common_salaryValidation(salary)));
 
         printf("Enter Sector \n");
         scanf("%d", &sector);
@@ -171,13 +170,13 @@ int removeEmployee(Employee  list[], int len)
         {
             if(!first)
             {
-                printf("Input error. Re enter");
+                printf("Input error. Re enter\n");
             }
             first= 0;
-            printf("Select the employee ID to delete");
+            printf("Select the employee ID to delete\n");
             scanf("%d", &idToDelete);
         }
-        while( !isValidReturnedFunctionValue(idValidation(idToDelete)));
+        while( !common_isValidReturnedFunctionValue(common_idValidation(idToDelete)));
 
         system("cls");
         index = findEmployeeById(list,len,idToDelete);
@@ -186,7 +185,7 @@ int removeEmployee(Employee  list[], int len)
 
         do
         {
-            printf("¿Are you sure, you want to delete this employeed id: %d YES 1 , NOT 0?\n", idToDelete);
+            printf("Are you sure, you want to delete this employeed id: %d YES 1 , NOT 0?\n", idToDelete);
             scanf("%d",&confirm);
         }
         while(confirm != TRUE && confirm != FALSE);
@@ -224,7 +223,7 @@ int modifyEmployee(Employee  list[], int len)
             printf("Select the employee ID to modify \n");
             scanf("%d", &idToModify);
         }
-        while(! isValidReturnedFunctionValue(idValidation(idToModify)));
+        while(! common_isValidReturnedFunctionValue(common_idValidation(idToModify)));
         // no valido el index porque ya e
         index = findEmployeeById(list,len,idToModify);
         if(index == employeeNotFound)
@@ -236,7 +235,7 @@ int modifyEmployee(Employee  list[], int len)
         printEmployee(list,len,index);
         do
         {
-            printf("¿Are you sure you want to modify this employeed id:%d  YES 1 , NOT 0 ?", idToModify);
+            printf("Are you sure you want to modify this employeed id:%d  YES 1 , NOT 0 ?", idToModify);
             scanf("%d",&confirm);
         }
         while(confirm != FALSE && confirm != TRUE);
@@ -262,7 +261,7 @@ int modifyEmployeeInformation(Employee * emp)
     int sector;
     int opc ;
 
-    opc = common_getMenu("Ingrese que desea modificar:\n1.1 .Change Name\n2. Change lastName \n3. change Salary \n4. change Sector: \n5. exit: \n","opcion invalida",1,5,3);
+    opc = common_getMenu("Ingrese que desea modificar:\n1.Change Name\n2. Change lastName \n3. change Salary \n4. change Sector: \n5. exit: \n","opcion invalida",1,5,3);
     switch(opc)
     {
     case 1:
@@ -278,7 +277,7 @@ int modifyEmployeeInformation(Employee * emp)
             gets(name);
             strcpy(emp->name,name);
         }
-        while(!isValidReturnedFunctionValue(stringValidation(name)));
+        while(!common_isValidReturnedFunctionValue(common_stringValidation(name)));
         break;
     case 2:
         do
@@ -293,7 +292,7 @@ int modifyEmployeeInformation(Employee * emp)
             gets(lastName);
             strcpy(emp->lastName,lastName);
         }
-        while(!isValidReturnedFunctionValue(stringValidation(lastName)));
+        while(!common_isValidReturnedFunctionValue(common_stringValidation(lastName)));
         break;
 
     case 3:
@@ -308,7 +307,7 @@ int modifyEmployeeInformation(Employee * emp)
             scanf("%f",&salary);
             emp->salary = salary;
         }
-        while(!isValidReturnedFunctionValue(salaryValidation(salary)));
+        while(!common_isValidReturnedFunctionValue(common_salaryValidation(salary)));
         break;
     case 4:
         printf("Enter Sector \n");

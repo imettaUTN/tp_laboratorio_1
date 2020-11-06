@@ -8,9 +8,13 @@ typedef struct
     int sueldo;
 }Employee;
 
+Employee* employee_GetCreateAnEmployee();
 Employee* employee_new();
-Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr);
-void employee_delete();
+Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char * sueldo);
+Employee* employee_newParametrosNonString(int id,char* nombre,int horasTrabajadas, int sueldo);
+
+int employee_showEmployee(Employee* this);
+void employee_delete(Employee* this);
 
 int employee_setId(Employee* this,int id);
 int employee_getId(Employee* this,int* id);

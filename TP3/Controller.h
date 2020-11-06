@@ -7,5 +7,8 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee);
 int controller_sortEmployee(LinkedList* pArrayListEmployee);
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
-
-
+int controller_getIndex(LinkedList * pArrayListEmployee, int id);
+int controller_compararId(void * emp1,void * emp2);
+int controller_compararNombre(void * emp1,void * emp2);
+int controller_compararSueldo(void * emp1,void * emp2);
+int controller_compararHorasTrabajadas(void * emp1,void * emp2);

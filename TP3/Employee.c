@@ -55,10 +55,18 @@ int employee_setId(Employee* pEmployee,int id)
 {
     int allOk = 0;
 
-    if(pEmployee != NULL && id >=0)
+    if(pEmployee != NULL )
     {
-        pEmployee ->id = id;
-        allOk = 1;
+        if(id >= 0)
+        {
+            pEmployee ->id = id;
+            allOk = 1;
+
+        }
+        else
+        {
+            printf("Id invalido \n");
+        }
     }
     return allOk;
 
@@ -80,10 +88,18 @@ int employee_setNombre(Employee* pEmployee,char* nombre)
 {
     int allOk = 0;
 
-    if(pEmployee != NULL && strlen(nombre) > 0)
+    if(pEmployee != NULL)
     {
-        strcpy(pEmployee ->nombre,nombre);
-        allOk = 1;
+        if(strlen(nombre) > 0)
+        {
+            strcpy(pEmployee ->nombre,nombre);
+            allOk = 1;
+
+        }
+        else
+        {
+            printf("Nombre invalido \n");
+        }
     }
     return allOk;
 }
@@ -105,10 +121,18 @@ int employee_setHorasTrabajadas(Employee* pEmployee,int horasTrabajadas)
 {
     int allOk = 0;
 
-    if(pEmployee != NULL && horasTrabajadas >=0)
+    if(pEmployee != NULL )
     {
-        pEmployee ->horasTrabajadas = horasTrabajadas;
-        allOk = 1;
+        if(horasTrabajadas >=0)
+        {
+            pEmployee ->horasTrabajadas = horasTrabajadas;
+            allOk = 1;
+
+        }
+        else
+        {
+            printf("Horas trabajadas invalidas \n");
+        }
     }
     return allOk;
 }
@@ -128,10 +152,17 @@ int employee_setSueldo(Employee* pEmployee,int sueldo)
 {
     int allOk = 0;
 
-    if(pEmployee != NULL && sueldo >=0)
+    if(pEmployee != NULL)
     {
-        pEmployee ->sueldo = sueldo;
-        allOk = 1;
+        if( sueldo >=0)
+        {
+            pEmployee ->sueldo = sueldo;
+            allOk = 1;
+        }
+        else
+        {
+            printf("Sueldo invalido \n");
+        }
     }
     return allOk;
 }
@@ -149,32 +180,6 @@ int employee_getSueldo(Employee* pEmployee,int* sueldo)
 
 int employee_showEmployee(Employee * emp)
 {
-    printf("%s  %s  %s   %s\n",emp->id,emp->nombre,emp->horasTrabajadas,emp->sueldo);
+    printf("%d  %s  %d   %d\n",emp->id,emp->nombre,emp->horasTrabajadas,emp->sueldo);
     return 1;
-}
-Employee* employee_GetCreateAnEmployee()
-{
-    int id;
-    char nombre[128];
-    Employee * emp = employee_new();
-    int horasTrabajadas;
-    int sueldo;
-
-    printf("Ingrese ID");
-    scanf("%d",&id);
-    emp->id = id;
-
-    printf("Ingrese nombre");
-    gets(nombre);
-    strcpy(emp->nombre, nombre);
-
-    printf("Ingrese sueldo");
-    scanf("%d",&sueldo);
-    emp->sueldo = sueldo;
-
-    printf("Ingrese horas");
-    scanf("%d",&horasTrabajadas);
-    emp->horasTrabajadas = horasTrabajadas;
-
-    return emp;
 }

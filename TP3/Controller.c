@@ -20,9 +20,11 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
     if(f == NULL)
     {
         printf("No se puede abrir el archivo \n");
+        return todoOk;
     }
     todoOk = parser_EmployeeFromText(f,pArrayListEmployee);
     fclose(f);
+    printf("Carga de datos exitosa \n");
     return todoOk;
 }
 
@@ -40,9 +42,11 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
     if(f == NULL)
     {
         printf("No se puede abrir el archivo \n");
+        return todoOk;
     }
     todoOk = parser_EmployeeFromText(f,pArrayListEmployee);
     fclose(f);
+    printf("Carga de datos exitosa \n");
     return todoOk;
 }
 
@@ -55,9 +59,37 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    Employee * emp ;
-    emp = employee_GetCreateAnEmployee();
+    char nombre[128];
+    Employee * emp = employee_new();
+    int horasTrabajadas;
+    int sueldo;
+
+    employee_setId(emp,controller_getLastId(pArrayListEmployee) +1);
+
+    do
+    {
+        printf("Ingrese nombre \n");
+        fflush(stdin);
+        gets(nombre);
+    }
+    while(!employee_setNombre(emp, nombre));
+
+    do
+    {
+        printf("Ingrese sueldo \n");
+        scanf("%d",&sueldo);
+    }
+    while(!employee_setSueldo(emp,sueldo));
+
+    do
+    {
+        printf("Ingrese horas \n");
+        scanf("%d",&horasTrabajadas);
+    }
+    while(!employee_setHorasTrabajadas(emp,horasTrabajadas));
+
     ll_add(pArrayListEmployee,emp);
+    printf("Alta exitosa\n");
     return 1;
 }
 
@@ -83,52 +115,56 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     pos = controller_getIndex(pArrayListEmployee,id);
     if(pos >=0)
     {
-        Employee * auxEmp = (Employee *) ll_get(pArrayListEmployee,pos);
+        Employee * emp = (Employee *) ll_get(pArrayListEmployee,pos);
         printf("Desea modifca el nombre ? si 1, no 0\n");
         scanf("%d",&rsta);
         if(rsta)
         {
-            printf("Ingrese el nombre \n");
-            fflush(stdin);
-            gets(nombre);
-            strcpy(auxEmp->nombre,nombre);
-
+            do
+            {
+                printf("Ingrese nombre \n");
+                fflush(stdin);
+                gets(nombre);
+            }
+            while(!employee_setNombre(emp, nombre));
         }
 
         printf("Desea modifica las horas trabajadas ? si 1, no 0\n");
         scanf("%d",&rsta);
         if(rsta)
         {
-            printf("Ingrese las horas trabajas \n");
-            scanf("%d",&horas);
-            if(horas <0)
+            do
             {
-                printf("horas  invalidas, deben ser mayor a 0 \n");
+                printf("Ingrese horas \n");
+                scanf("%d",&horas);
             }
-            else
-            {
-                auxEmp->horasTrabajadas = horas;
-            }
+            while(!employee_setHorasTrabajadas(emp,horas));
         }
 
         printf("Desea modifica el sueldo ? si 1, no 0\n");
         scanf("%d",&rsta);
         if(rsta)
         {
-            printf("Ingrese el sueldo trabajas \n");
-            scanf("%d",&sueldo);
-            if(sueldo <0)
+            do
             {
-                printf("Sueldo invalido, deber ser mayor a 0 \n");
+                printf("Ingrese sueldo \n");
+                scanf("%d",&sueldo);
             }
-            else
-            {
-                auxEmp->sueldo = sueldo;
-            }
+            while(!employee_setSueldo(emp,sueldo));
         }
 
         allok= ll_remove(pArrayListEmployee,pos);
-        ll_add(pArrayListEmployee,auxEmp);
+        allok = ll_add(pArrayListEmployee,emp);
+
+    }
+    else
+    {
+        printf("No se encuentra el id %d, en la lista \n",id);
+    }
+
+    if(allok)
+    {
+        printf("Edicion del empleado correcta \n");
     }
     return allok;
 }
@@ -152,6 +188,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     if(pos >=0)
     {
         allok= ll_remove(pArrayListEmployee,pos);
+    }
+    if(allok)
+    {
+        printf("Remocion correcta \n");
     }
     return allok;
 }
@@ -197,17 +237,17 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     int allOk = 1;
     do
     {
-        printf("Si desea ordenar por: ID ingrese %d,Nombre ingrese %d,horas Trabajadas ingrese %d,Sueldo ingrese %d",1,2,3,4);
+        printf("Si desea ordenar por ID ingrese %d\nSi desea ordenar por Nombre ingrese %d\nSi desea ordenar por horas Trabajadas ingrese %d\n Si desea ordenar por Sueldo ingrese %d\n",1,2,3,4);
         scanf("%d",&opc);
     }
     while(opc < 1 || opc >4);
 
     do
     {
-        printf("Si desea ordenar ascendentemente ingrese 0, sino 1");
+        printf("Si desea ordenar ascendentemente ingrese 0, sino 1\n");
         scanf("%d",&order);
     }
-    while(order != 0 ||order != 1);
+    while(order < 0 ||order > 1);
 
     switch(opc)
     {
@@ -223,6 +263,10 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     case 4:
         ll_sort(pArrayListEmployee,controller_compararSueldo,order);
         break;
+    }
+    if(allOk)
+    {
+        printf("Ordenamiento correcto \n");
     }
     return allOk;
 }
@@ -299,23 +343,44 @@ int controller_getIndex(LinkedList * pArrayListEmployee, int id)
             return i;
         }
     }
-    printf("No se encuentra el id %d, en la lista \n",id);
     return index;
+}
+
+int controller_getLastId(LinkedList * pArrayListEmployee)
+{
+    int tam = ll_len(pArrayListEmployee);
+    Employee *auxEmp;
+
+    auxEmp = (Employee *) ll_get(pArrayListEmployee,tam - 1);
+    return auxEmp ->id;
+
 }
 
 int controller_compararId(void * emp1,void * emp2)
 {
-    return 0;
+    Employee * empa = (Employee *) emp1;
+    Employee * empb = (Employee *) emp2;
+
+    return empa->id - empb->id;
 }
 int controller_compararNombre(void * emp1,void * emp2)
 {
-    return 0;
+    Employee * empa = (Employee *) emp1;
+    Employee * empb = (Employee *) emp2;
+
+    return strcmp( empa->nombre,empb->nombre);
 }
 int controller_compararSueldo(void * emp1,void * emp2)
 {
-    return 0;
+    Employee * empa = (Employee *) emp1;
+    Employee * empb = (Employee *) emp2;
+
+    return empa->sueldo - empb->sueldo;
 }
 int controller_compararHorasTrabajadas(void * emp1,void * emp2)
 {
-    return 0;
+    Employee * empa = (Employee *) emp1;
+    Employee * empb = (Employee *) emp2;
+
+    return empa->horasTrabajadas - empb->horasTrabajadas;
 }

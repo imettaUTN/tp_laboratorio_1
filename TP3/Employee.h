@@ -8,7 +8,6 @@ typedef struct
     int sueldo;
 }Employee;
 
-Employee* employee_GetCreateAnEmployee();
 Employee* employee_new();
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char * sueldo);
 Employee* employee_newParametrosNonString(int id,char* nombre,int horasTrabajadas, int sueldo);

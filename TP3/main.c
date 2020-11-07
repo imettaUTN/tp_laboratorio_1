@@ -28,7 +28,7 @@ int main()
     int option = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
     option =common_getMenu("1 CARGA EMPLEADOS ARH TXT\n2 CARGA EMPLEADOS ARH BIN:\n3 ALTA EMPLEADO\n4 MODIFICA EMPLADO\n5 BAJA EMPLEADO\n6 LISTAR EMPLEADOS\n7 ORDENAR EMPLEADOS\n8 GRABAR EMPLEADOS ARH TXT\n9 GRABAR EMPLEADOS ARH BIN \n10SALIR","Opcion invalida. Reingrese",1,10,3);
-    char * pathTxt = "C:\\Programacion1\\TP3\\data.bin";
+    char * pathTxt = "C:\\Programacion1\\TP3\\data.csv";
     char * pathBin = "C:\\Programacion1\\TP3\\data.csv";
     int exit = FALSE;
     do

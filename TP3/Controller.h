@@ -12,3 +12,4 @@ int controller_compararId(void * emp1,void * emp2);
 int controller_compararNombre(void * emp1,void * emp2);
 int controller_compararSueldo(void * emp1,void * emp2);
 int controller_compararHorasTrabajadas(void * emp1,void * emp2);
+int controller_getLastId(LinkedList * pArrayListEmployee);

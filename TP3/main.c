@@ -29,38 +29,99 @@ int main()
     LinkedList* listaEmpleados = ll_newLinkedList();
     option =common_getMenu("1 CARGA EMPLEADOS ARH TXT\n2 CARGA EMPLEADOS ARH BIN:\n3 ALTA EMPLEADO\n4 MODIFICA EMPLADO\n5 BAJA EMPLEADO\n6 LISTAR EMPLEADOS\n7 ORDENAR EMPLEADOS\n8 GRABAR EMPLEADOS ARH TXT\n9 GRABAR EMPLEADOS ARH BIN \n10SALIR","Opcion invalida. Reingrese",1,10,3);
     char * pathTxt = "C:\\Programacion1\\TP3\\data.csv";
-    char * pathBin = "C:\\Programacion1\\TP3\\data.csv";
+    char * pathBin = "C:\\Programacion1\\TP3\\data.bin";
     int exit = FALSE;
+    int cargueDatosPrimero = FALSE;
     do
     {
         switch(option)
         {
         case 1:
-            controller_loadFromText(pathTxt,listaEmpleados);
+            if(!controller_loadFromText(pathTxt,listaEmpleados))
+            {
+                printf("CARGA DE DATOS INVALIDA \n");
+            }
+            else {cargueDatosPrimero = TRUE;}
             break;
         case 2:
-            controller_loadFromBinary(pathBin,listaEmpleados);
+            if(!controller_loadFromBinary(pathBin,listaEmpleados))
+            {
+                printf("CARGA DE DATOS INVALIDA \n");
+            }
+            else {cargueDatosPrimero = TRUE;}
             break;
         case 3:
-            controller_addEmployee(listaEmpleados);
+            if(!controller_addEmployee(listaEmpleados))
+            {
+                printf("ERROR EN EL ALTA DEL EMPLEADO \n");
+            }
+            else {cargueDatosPrimero = TRUE;}
             break;
         case 4:
-            controller_editEmployee(listaEmpleados);
+            if(!cargueDatosPrimero)
+            {
+                printf("Primero deber cargar datos para poder editar un empleado \n");
+                break;
+            }
+            if(!controller_editEmployee(listaEmpleados))
+            {
+                printf("ERROR EDITANDO EMPLEADO \n");
+            }
             break;
         case 5:
-            controller_removeEmployee(listaEmpleados);
+            if(!cargueDatosPrimero)
+            {
+                printf("Primero deber cargar datos para poder remover un empleado \n");
+                break;
+            }
+            if(!controller_removeEmployee(listaEmpleados))
+            {
+                printf("ERROR REMOVIENDO EMPLEAOD \n");
+            }
             break;
         case 6:
-            controller_ListEmployee(listaEmpleados);
+            if(!cargueDatosPrimero)
+            {
+                printf("Primero deber cargar datos para poder listar empleados \n");
+                break;
+            }
+            if(!controller_ListEmployee(listaEmpleados))
+            {
+                printf("ERROR LISTANDO EMPLEADOS \n");
+            }
             break;
         case 7:
-            controller_sortEmployee(listaEmpleados);
+            if(!cargueDatosPrimero)
+            {
+                printf("Primero deber cargar datos para poder ordenar la lista de empleados \n");
+                break;
+            }
+            if(!controller_sortEmployee(listaEmpleados))
+            {
+                printf("ERROR ORDENANDO LISTA DE EMPLEADOS\n");
+            }
             break;
         case 8:
-            controller_saveAsText(pathTxt,listaEmpleados);
+            if(!cargueDatosPrimero)
+            {
+                printf("Primero deber cargar datos para poder grabar los empleados \n");
+                break;
+            }
+            if(!controller_saveAsText(pathTxt,listaEmpleados))
+            {
+                printf("EROR AL GRABAR LISTA DE EMPLEADO EN FORMATO TEXTO\n");
+            }
             break;
         case 9:
-            controller_saveAsBinary(pathBin,listaEmpleados);
+            if(!cargueDatosPrimero)
+            {
+                printf("Primero deber cargar datos para poder grabar los empleados \n");
+                break;
+            }
+            if(!controller_saveAsBinary(pathTxt,listaEmpleados))
+            {
+                printf("ERROR AL GRABAR LA LISTA DE EMPLEADO EN FORMATO BINARIO\n");
+            }
             break;
         case 10:
             printf("El sistema se va a cerrar\n");
@@ -78,12 +139,11 @@ int main()
         if(!exit)
         {
             option =common_getMenu("1 CARGA EMPLEADOS ARH TXT\n2 CARGA EMPLEADOS ARH BIN:\n3 ALTA EMPLEADO\n4 MODIFICA EMPLADO\n5 BAJA EMPLEADO\n6 LISTAR EMPLEADOS\n7 ORDENAR EMPLEADOS\n8 GRABAR EMPLEADOS ARH TXT\n9 GRABAR EMPLEADOS ARH BIN \n10SALIR","Opcion invalida. Reingrese",1,10,3);
-            system("pause");
         }
 
     }
     while(!exit && option != 10 );
-    // libero la memoria
+    // libero la lista de memoria
     ll_deleteLinkedList(listaEmpleados);
     return 0;
 }

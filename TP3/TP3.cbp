@@ -35,6 +35,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Common.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Common.h" />
 		<Unit filename="Controller.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -52,9 +56,6 @@
 		</Unit>
 		<Unit filename="parser.h" />
 		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

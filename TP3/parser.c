@@ -14,7 +14,7 @@
 int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
 {
     int allOk = 0;
-    char buffer[4][100];
+    char buffer[4][128];
     int cant ;
     if(pFile == NULL && pArrayListEmployee == NULL  )
     {
@@ -25,18 +25,21 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
     while(!feof(pFile))
     {
         Employee * aux;
-       cant = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",buffer[0],buffer[1],buffer[2],buffer[3]);
+        cant = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",buffer[0],buffer[1],buffer[2],buffer[3]);
         if(cant == 4)
         {
-             aux = employee_newParametros(buffer[0],buffer[1],buffer[2],buffer[3]);
-             ll_add(pArrayListEmployee,aux);
+            aux = employee_newParametros(buffer[0],buffer[1],buffer[2],buffer[3]);
+            if(aux != NULL)
+            {
+               allOk= ll_add(pArrayListEmployee,aux);
+            }
+            free(aux);
         }
         else
         {
             break;
         }
     }
-    allOk = 1;
 
     return allOk;
 }
@@ -50,20 +53,30 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
  */
 int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
-    int allOk = 0;
+    int allOk=0;
+    Employee* auxEmployee;
+    int count = 0;
 
-    if(pFile == NULL && pArrayListEmployee == NULL  )
+    if(pFile!=NULL)
     {
-        printf("No se puede abrir el archivo \n");
-        return allOk;
-    }
+        do
+        {
+            //pido memoria para el buffe del empleado a leer
+            auxEmployee=employee_new();
+            if(auxEmployee !=NULL)
+            {
+                // leo  el archivo
+               count = fread(auxEmployee, sizeof(Employee), 1, pFile);
+               if(count >0)
+               {
+                   // agrego la estructura a la lista
+                allOk= ll_add(pArrayListEmployee,auxEmployee);
+               }
+               free(auxEmployee);
+            }
 
-    while(!feof(pFile))
-    {
-        Employee * aux ;
-        fread(&aux,sizeof(Employee),1,pFile);
-        ll_add(pArrayListEmployee,aux);
+        }
+        while(!feof(pFile));
     }
-    allOk = 1;
     return allOk;
 }

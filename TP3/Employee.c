@@ -8,8 +8,6 @@ Employee* employee_new()
     return (Employee *) malloc(sizeof(Employee));
 }
 
-
-
 Employee* employee_newParametrosNonString(int id,char* nombre,int horasTrabajadas, int sueldo)
 {
     Employee * auxEmployee;
@@ -87,7 +85,7 @@ int employee_getId(Employee* pEmployee,int* id)
 int employee_setNombre(Employee* pEmployee,char* nombre)
 {
     int allOk = 0;
-
+    fflush(stdin);
     if(pEmployee != NULL)
     {
         if(strlen(nombre) > 0)
@@ -180,6 +178,5 @@ int employee_getSueldo(Employee* pEmployee,int* sueldo)
 
 int employee_showEmployee(Employee * emp)
 {
-    printf("%d  %s  %d   %d\n",emp->id,emp->nombre,emp->horasTrabajadas,emp->sueldo);
-    return 1;
+    return printf("%d  %s    %d     %d\n",emp->id,emp->nombre,emp->horasTrabajadas,emp->sueldo);
 }

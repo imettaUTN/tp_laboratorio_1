@@ -17,6 +17,7 @@ int controller_loadFromText(char* path, LinkedList* pArrayListEmployee)
 {
     int todoOk = 0;
     FILE * f = fopen(path,"r");
+
     if(f == NULL)
     {
         printf("No se puede abrir el archivo \n");
@@ -44,7 +45,7 @@ int controller_loadFromBinary(char* path, LinkedList* pArrayListEmployee)
         printf("No se puede abrir el archivo \n");
         return todoOk;
     }
-    todoOk = parser_EmployeeFromText(f,pArrayListEmployee);
+    todoOk = parser_EmployeeFromBinary(f,pArrayListEmployee);
     fclose(f);
     printf("Carga de datos exitosa \n");
     return todoOk;
@@ -89,6 +90,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     while(!employee_setHorasTrabajadas(emp,horasTrabajadas));
 
     ll_add(pArrayListEmployee,emp);
+    free(emp);
     printf("Alta exitosa\n");
     return 1;
 }
@@ -109,59 +111,79 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     int horas = 0;
     char nombre[128];
     int rsta =0;
-    printf("Seleccion el id del empleado a editar ");
+
+
+    if(pArrayListEmployee == NULL || ll_isEmpty(pArrayListEmployee))
+    {
+        printf("Lista vacia. No hay empleado para editar \n");
+        return allok;
+    }
+
+    printf("Seleccion el id del empleado a editar \n");
     controller_ListEmployee(pArrayListEmployee);
     scanf("%d",&id);
+    //obtengo posicion en la lista para recuperar la estructura
     pos = controller_getIndex(pArrayListEmployee,id);
-    if(pos >=0)
+    // recupero la esctrura del empleado
+    Employee * auxEmp = (Employee *) ll_get(pArrayListEmployee,pos);
+
+    printf("Empleado a editar :\n");
+    employee_showEmployee(auxEmp);
+    printf("Esta seguro que desea editar el empleado Si 1 , No 0: \n");
+    scanf("%d",&rsta);
+    // si ingreso que no lo quiere modificar pongo el negado de 0 para que devuelva ok porque no hay error
+    allok = !rsta;
+    if(rsta)
     {
-        Employee * emp = (Employee *) ll_get(pArrayListEmployee,pos);
-        printf("Desea modifca el nombre ? si 1, no 0\n");
-        scanf("%d",&rsta);
-        if(rsta)
+
+        if(pos >=0)
         {
-            do
+            Employee * emp = (Employee *) ll_get(pArrayListEmployee,pos);
+            printf("Desea modifca el nombre ? si 1, no 0\n");
+            scanf("%d",&rsta);
+            if(rsta)
             {
-                printf("Ingrese nombre \n");
-                fflush(stdin);
-                gets(nombre);
+                do
+                {
+                    printf("Ingrese nombre \n");
+                    gets(nombre);
+                }
+                while(!employee_setNombre(emp, nombre));
             }
-            while(!employee_setNombre(emp, nombre));
-        }
 
-        printf("Desea modifica las horas trabajadas ? si 1, no 0\n");
-        scanf("%d",&rsta);
-        if(rsta)
+            printf("Desea modifica las horas trabajadas ? si 1, no 0\n");
+            scanf("%d",&rsta);
+            if(rsta)
+            {
+                do
+                {
+                    printf("Ingrese horas \n");
+                    scanf("%d",&horas);
+                }
+                while(!employee_setHorasTrabajadas(emp,horas));
+            }
+
+            printf("Desea modifica el sueldo ? si 1, no 0\n");
+            scanf("%d",&rsta);
+            if(rsta)
+            {
+                do
+                {
+                    printf("Ingrese sueldo \n");
+                    scanf("%d",&sueldo);
+                }
+                while(!employee_setSueldo(emp,sueldo));
+            }
+
+            allok= ll_remove(pArrayListEmployee,pos);
+            allok = ll_add(pArrayListEmployee,emp);
+
+        }
+        else
         {
-            do
-            {
-                printf("Ingrese horas \n");
-                scanf("%d",&horas);
-            }
-            while(!employee_setHorasTrabajadas(emp,horas));
+            printf("No se encuentra el id %d, en la lista \n",id);
         }
-
-        printf("Desea modifica el sueldo ? si 1, no 0\n");
-        scanf("%d",&rsta);
-        if(rsta)
-        {
-            do
-            {
-                printf("Ingrese sueldo \n");
-                scanf("%d",&sueldo);
-            }
-            while(!employee_setSueldo(emp,sueldo));
-        }
-
-        allok= ll_remove(pArrayListEmployee,pos);
-        allok = ll_add(pArrayListEmployee,emp);
-
     }
-    else
-    {
-        printf("No se encuentra el id %d, en la lista \n",id);
-    }
-
     if(allok)
     {
         printf("Edicion del empleado correcta \n");
@@ -179,19 +201,37 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
     int id ;
+    int rsta ;
     int allok = 0 ;
     int pos;
-    printf("Seleccion el id del empleado");
+    if(pArrayListEmployee == NULL || ll_isEmpty(pArrayListEmployee))
+    {
+
+        printf("Lista vacia \n");
+        return !allok;
+    }
+
+    printf("Seleccion el id del empleado a eliminar \n");
     controller_ListEmployee(pArrayListEmployee);
     scanf("%d",&id);
     pos = controller_getIndex(pArrayListEmployee,id);
-    if(pos >=0)
+    Employee * auxEmp = (Employee *) ll_get(pArrayListEmployee,pos);
+    printf("Empleado a eliminar :\n");
+    employee_showEmployee(auxEmp);
+    printf("Esta seguro que desea eliminar el empleado Si 1 , No 0: \n");
+    scanf("%d",&rsta);
+    // si ingreso que no lo quiere modificar pongo el negado de 0 para que devuelva ok porque no hay error
+    allok = !rsta;
+    if(rsta)
+    {
+        if(pos >=0)
     {
         allok= ll_remove(pArrayListEmployee,pos);
     }
     if(allok)
     {
         printf("Remocion correcta \n");
+    }
     }
     return allok;
 }
@@ -206,19 +246,25 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
     int todoOk =1;
+
     printf("id  nombre  horas   sueldo\n");
     int tam = ll_len(pArrayListEmployee);
-    Employee *auxEmp;
-    if(pArrayListEmployee != NULL)
+    Employee *auxEmp ;
+    if(pArrayListEmployee != NULL || !ll_isEmpty(pArrayListEmployee))
     {
         for(int i =0; i< tam ; i++)
         {
-            auxEmp = (Employee *) ll_get(pArrayListEmployee,i);
+            auxEmp = (Employee *)ll_get(pArrayListEmployee,i);
+
             if(auxEmp != NULL)
             {
                 employee_showEmployee(auxEmp);
             }
         }
+    }
+    else
+    {
+        printf("Lista vacia \n");
     }
     return todoOk;
 }
@@ -234,7 +280,13 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
     int opc ;
     int order ;
-    int allOk = 1;
+    int allOk = 0;
+    if(pArrayListEmployee == NULL || ll_isEmpty(pArrayListEmployee))
+    {
+        printf("La lista se encuentra vacia");
+        return !allOk;
+    }
+
     do
     {
         printf("Si desea ordenar por ID ingrese %d\nSi desea ordenar por Nombre ingrese %d\nSi desea ordenar por horas Trabajadas ingrese %d\n Si desea ordenar por Sueldo ingrese %d\n",1,2,3,4);
@@ -252,16 +304,16 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     switch(opc)
     {
     case 1:
-        ll_sort(pArrayListEmployee,controller_compararId,order);
+        allOk =ll_sort(pArrayListEmployee,controller_compararId,order);
         break;
     case 2:
-        ll_sort(pArrayListEmployee,controller_compararNombre,order);
+       allOk= ll_sort(pArrayListEmployee,controller_compararNombre,order);
         break;
     case 3:
-        ll_sort(pArrayListEmployee,controller_compararHorasTrabajadas,order);
+        allOk =ll_sort(pArrayListEmployee,controller_compararHorasTrabajadas,order);
         break;
     case 4:
-        ll_sort(pArrayListEmployee,controller_compararSueldo,order);
+        allOk = ll_sort(pArrayListEmployee,controller_compararSueldo,order);
         break;
     }
     if(allOk)
@@ -282,6 +334,11 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
     int todoOk = 0;
     FILE * f = fopen(path,"a");
+    if(pArrayListEmployee == NULL || ll_isEmpty(pArrayListEmployee))
+    {
+        printf("La lista esta vacia, no se grabara nada \n");
+        return !todoOk;
+    }
     if(f == NULL)
     {
         printf("No se puede abrir el archivo \n");
@@ -309,30 +366,37 @@ int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
-    int todoOk = 0;
-    FILE * f = fopen(path,"ab");
-    if(f == NULL)
+   int allok=0;
+    FILE* pFile=fopen(path, "wb");
+    Employee* auxEmployee;
+    int tam= ll_len(pArrayListEmployee);
+    if(pArrayListEmployee != NULL || !ll_isEmpty(pArrayListEmployee))
     {
-        printf("No se puede abrir el archivo \n");
-    }
-    int tam = ll_len(pArrayListEmployee);
-    Employee *auxEmp;
-    for(int i =0; i< tam ; i++)
-    {
-        auxEmp = (Employee *) ll_get(pArrayListEmployee,i);
-        if(auxEmp != NULL)
+        for(int i=0; i<tam; i++)
         {
-            fwrite(&auxEmp,sizeof(Employee),1,f);
+            auxEmployee= (Employee*)ll_get(pArrayListEmployee, i);
+            if(auxEmployee!=NULL)
+            {
+               allok =fwrite(&auxEmployee, sizeof(Employee), 1, pFile);
+            }
         }
+        fclose(pFile);
+        printf("El archivo se grabo correctamente \n");
     }
-    fclose(f);
-    return todoOk;
+    else
+    {
+        printf("La lista esta vacia. No se grabara nada \n");
+    }
+
+    return allok;
 }
 
 int controller_getIndex(LinkedList * pArrayListEmployee, int id)
 {
-
     int index = -1;
+    if(pArrayListEmployee == NULL || ll_isEmpty(pArrayListEmployee))    {
+        return index;
+    }
     int tam = ll_len(pArrayListEmployee);
     Employee *auxEmp;
     for(int i =0; i< tam ; i++)
@@ -348,19 +412,20 @@ int controller_getIndex(LinkedList * pArrayListEmployee, int id)
 
 int controller_getLastId(LinkedList * pArrayListEmployee)
 {
+    if(pArrayListEmployee == NULL || ll_isEmpty(pArrayListEmployee))
+    {
+        return -1;
+    }
     int tam = ll_len(pArrayListEmployee);
     Employee *auxEmp;
-
     auxEmp = (Employee *) ll_get(pArrayListEmployee,tam - 1);
     return auxEmp ->id;
-
 }
 
 int controller_compararId(void * emp1,void * emp2)
 {
     Employee * empa = (Employee *) emp1;
     Employee * empb = (Employee *) emp2;
-
     return empa->id - empb->id;
 }
 int controller_compararNombre(void * emp1,void * emp2)

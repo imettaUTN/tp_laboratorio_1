@@ -90,7 +90,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     while(!employee_setHorasTrabajadas(emp,horasTrabajadas));
 
     ll_add(pArrayListEmployee,emp);
-    free(emp);
+  //  free(emp);
     printf("Alta exitosa\n");
     return 1;
 }
@@ -374,10 +374,12 @@ int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
     {
         for(int i=0; i<tam; i++)
         {
+
             auxEmployee= (Employee*)ll_get(pArrayListEmployee, i);
             if(auxEmployee!=NULL)
             {
-               allok =fwrite(&auxEmployee, sizeof(Employee), 1, pFile);
+
+               allok =fwrite(auxEmployee, sizeof(Employee), 1, pFile);
             }
         }
         fclose(pFile);

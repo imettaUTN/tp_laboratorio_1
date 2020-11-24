@@ -33,7 +33,7 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
             {
                allOk= ll_add(pArrayListEmployee,aux);
             }
-            free(aux);
+            //free(aux);
         }
         else
         {
@@ -53,30 +53,21 @@ int parser_EmployeeFromText(FILE* pFile, LinkedList* pArrayListEmployee)
  */
 int parser_EmployeeFromBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
-    int allOk=0;
-    Employee* auxEmployee;
-    int count = 0;
-
-    if(pFile!=NULL)
+    int status = 0;
+    int count ;
+    if(pFile != NULL && pArrayListEmployee != NULL)
     {
-        do
+        while(!feof(pFile))
         {
-            //pido memoria para el buffe del empleado a leer
-            auxEmployee=employee_new();
-            if(auxEmployee !=NULL)
+            Employee* auxEmployee = employee_new();
+            count= fread(auxEmployee, sizeof(Employee), 1, pFile);
+            if(count >0)
             {
-                // leo  el archivo
-               count = fread(auxEmployee, sizeof(Employee), 1, pFile);
-               if(count >0)
-               {
-                   // agrego la estructura a la lista
-                allOk= ll_add(pArrayListEmployee,auxEmployee);
-               }
-               free(auxEmployee);
-            }
+             status= ll_add(pArrayListEmployee, auxEmployee);
 
+            }
         }
-        while(!feof(pFile));
     }
-    return allOk;
+    return status;
+
 }

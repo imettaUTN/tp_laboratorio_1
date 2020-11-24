@@ -28,8 +28,8 @@ int main()
     int option = 0;
     LinkedList* listaEmpleados = ll_newLinkedList();
     option =common_getMenu("1 CARGA EMPLEADOS ARH TXT\n2 CARGA EMPLEADOS ARH BIN:\n3 ALTA EMPLEADO\n4 MODIFICA EMPLADO\n5 BAJA EMPLEADO\n6 LISTAR EMPLEADOS\n7 ORDENAR EMPLEADOS\n8 GRABAR EMPLEADOS ARH TXT\n9 GRABAR EMPLEADOS ARH BIN \n10SALIR","Opcion invalida. Reingrese",1,10,3);
-    char * pathTxt = "C:\\Programacion1\\TP3\\data.csv";
-    char * pathBin = "C:\\Programacion1\\TP3\\data.bin";
+    char * pathTxt = "C:\\Programacion1\\Archivos\\data.csv";
+    char * pathBin = "C:\\Programacion1\\Archivos\\dataB.bin";
     int exit = FALSE;
     int cargueDatosPrimero = FALSE;
     do
@@ -37,14 +37,14 @@ int main()
         switch(option)
         {
         case 1:
-            if(!controller_loadFromText(pathTxt,listaEmpleados))
+            if(controller_loadFromText(pathTxt,listaEmpleados))
             {
                 printf("CARGA DE DATOS INVALIDA \n");
             }
             else {cargueDatosPrimero = TRUE;}
             break;
         case 2:
-            if(!controller_loadFromBinary(pathBin,listaEmpleados))
+            if(controller_loadFromBinary(pathBin,listaEmpleados))
             {
                 printf("CARGA DE DATOS INVALIDA \n");
             }
@@ -118,7 +118,7 @@ int main()
                 printf("Primero deber cargar datos para poder grabar los empleados \n");
                 break;
             }
-            if(!controller_saveAsBinary(pathTxt,listaEmpleados))
+            if(!controller_saveAsBinary(pathBin,listaEmpleados))
             {
                 printf("ERROR AL GRABAR LA LISTA DE EMPLEADO EN FORMATO BINARIO\n");
             }

@@ -3,7 +3,7 @@
 
  * \param pFile FILE* puntero al archivo
  * \param pArrayListEmployee LinkedList* lista
- * \return int TRUE/FALSE si todo salio bien
+ * \return int error? si[1], no[0]
  *
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee);
@@ -13,7 +13,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee);
 
  * \param pFile FILE* puntero al archivo
  * \param pArrayListEmployee LinkedList* lista
- * \return int TRUE/FALSE si todo salio bien
+ * \return int error? si[1], no[0]
  *
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee);

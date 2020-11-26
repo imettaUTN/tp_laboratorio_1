@@ -13,33 +13,46 @@ Employee* employee_newParametrosNonString(int id,char* nombre,int horasTrabajada
     Employee * auxEmployee;
     auxEmployee= employee_new();
 
-    if(auxEmployee != NULL)
+    if(auxEmployee != NULL && id>=0 && nombre != NULL && horasTrabajadas >=0 && sueldo >=0)
     {
 
-        if(!(employee_setId(auxEmployee,id) && employee_setNombre(auxEmployee,nombre) && employee_setSueldo(auxEmployee,sueldo) && employee_setHorasTrabajadas(auxEmployee,horasTrabajadas)))
+        if(employee_setId(auxEmployee,id) && employee_setNombre(auxEmployee,nombre) && employee_setSueldo(auxEmployee,sueldo) && employee_setHorasTrabajadas(auxEmployee,horasTrabajadas))
         {
             // sino pude hacer el set, borro el empleado liberando memoria
             auxEmployee = NULL;
             employee_delete(auxEmployee);
         }
+        else
+        {
+            employee_setId(auxEmployee,id);
+            employee_setNombre(auxEmployee,nombre) ;
+            employee_setSueldo(auxEmployee,sueldo) ;
+            employee_setHorasTrabajadas(auxEmployee,horasTrabajadas);
+        }
     }
     return auxEmployee;
 }
-
 
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char * sueldo)
 {
     Employee * auxEmployee;
     auxEmployee= employee_new();
 
-    if(auxEmployee != NULL)
+    if(auxEmployee != NULL && idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL && sueldo != NULL)
     {
 
-        if(!(employee_setId(auxEmployee,atoi(idStr)) && employee_setNombre(auxEmployee,nombreStr) && employee_setSueldo(auxEmployee,atoi(sueldo)) && employee_setHorasTrabajadas(auxEmployee,atoi(horasTrabajadasStr))))
+        if(employee_setId(auxEmployee,atoi(idStr)) && employee_setNombre(auxEmployee,nombreStr) && employee_setSueldo(auxEmployee,atoi(sueldo)) && employee_setHorasTrabajadas(auxEmployee,atoi(horasTrabajadasStr)))
         {
             // sino pude hacer el set, borro el empleado liberando memoria
             auxEmployee = NULL;
             employee_delete(auxEmployee);
+        }
+        else
+        {
+            employee_setId(auxEmployee,atoi(idStr)) ;
+            employee_setNombre(auxEmployee,nombreStr);
+            employee_setSueldo(auxEmployee,atoi(sueldo)) ;
+            employee_setHorasTrabajadas(auxEmployee,atoi(horasTrabajadasStr));
         }
     }
     return auxEmployee;
@@ -51,14 +64,14 @@ void employee_delete(Employee* pEmployee)
 
 int employee_setId(Employee* pEmployee,int id)
 {
-    int allOk = 0;
+    int error = 1;
 
     if(pEmployee != NULL )
     {
         if(id >= 0)
         {
             pEmployee ->id = id;
-            allOk = 1;
+            error = 0;
 
         }
         else
@@ -66,32 +79,32 @@ int employee_setId(Employee* pEmployee,int id)
             printf("Id invalido \n");
         }
     }
-    return allOk;
+    return error;
 
 }
 int employee_getId(Employee* pEmployee,int* id)
 {
-    int allOk = 0;
+    int error = 1;
 
     if( pEmployee !=NULL)
     {
         *id = pEmployee ->id;
-        allOk = 1;
+        error = 0;
     }
-    return allOk;
+    return error;
 
 }
 
 int employee_setNombre(Employee* pEmployee,char* nombre)
 {
-    int allOk = 0;
+    int error = 1;
     fflush(stdin);
     if(pEmployee != NULL)
     {
         if(strlen(nombre) > 0)
         {
             strcpy(pEmployee ->nombre,nombre);
-            allOk = 1;
+            error = 0;
 
         }
         else
@@ -99,32 +112,32 @@ int employee_setNombre(Employee* pEmployee,char* nombre)
             printf("Nombre invalido \n");
         }
     }
-    return allOk;
+    return error;
 }
 
 int employee_getNombre(Employee* pEmployee,char* nombre)
 {
-    int allOk = 0;
+    int error = 1;
 
     if(pEmployee != NULL)
     {
         strcpy(nombre,pEmployee ->nombre);
-        allOk = 1;
+        error = 0;
     }
 
-    return allOk;
+    return error;
 }
 
 int employee_setHorasTrabajadas(Employee* pEmployee,int horasTrabajadas)
 {
-    int allOk = 0;
+    int error = 1;
 
     if(pEmployee != NULL )
     {
         if(horasTrabajadas >=0)
         {
             pEmployee ->horasTrabajadas = horasTrabajadas;
-            allOk = 1;
+            error = 0;
 
         }
         else
@@ -132,51 +145,52 @@ int employee_setHorasTrabajadas(Employee* pEmployee,int horasTrabajadas)
             printf("Horas trabajadas invalidas \n");
         }
     }
-    return allOk;
+    return error;
 }
 int employee_getHorasTrabajadas(Employee* pEmployee,int* horasTrabajadas)
 {
-    int allOk = 0;
+    int error = 1;
 
     if(pEmployee != NULL)
     {
         *horasTrabajadas = pEmployee ->horasTrabajadas ;
-        allOk = 1;
+        error = 0;
     }
-    return allOk;
+    return error;
 }
 
 int employee_setSueldo(Employee* pEmployee,int sueldo)
 {
-    int allOk = 0;
+    int error = 1;
 
     if(pEmployee != NULL)
     {
         if( sueldo >=0)
         {
             pEmployee ->sueldo = sueldo;
-            allOk = 1;
+            error = 0;
         }
         else
         {
             printf("Sueldo invalido \n");
         }
     }
-    return allOk;
+    return error;
 }
 int employee_getSueldo(Employee* pEmployee,int* sueldo)
 {
-    int allOk = 0;
+    int error = 1;
 
     if(pEmployee != NULL)
     {
         *sueldo = pEmployee ->sueldo ;
-        allOk = 1;
+        error = 0;
     }
-    return allOk;
+    return error;
 }
 
 int employee_showEmployee(Employee * emp)
 {
-    return printf("%d  %s    %d     %d\n",emp->id,emp->nombre,emp->horasTrabajadas,emp->sueldo);
+    printf("%d  %s    %d     %d\n",emp->id,emp->nombre,emp->horasTrabajadas,emp->sueldo);
+    return 0;
 }

@@ -40,7 +40,7 @@ Employee* employee_newParametrosNonString(int id,char* nombre,int horasTrabajada
 /** \brief
  * Muestra la informacion de un empleado
  * \param this Employee*  puntero al empleado a mostrar
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_showEmployee(Employee* this);
@@ -56,7 +56,7 @@ void employee_delete(Employee* this);
  * Set empleado id validado
  * \param this Employee* puntero al empleado
  * \param id int id empleado
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_setId(Employee* this,int id);
@@ -64,7 +64,7 @@ int employee_setId(Employee* this,int id);
  * Obtiene el id del empleado y lo aloja en la variable id
  * \param this Employee* empleado
  * \param id int* variable id pasada por referencia donde se alojara el mismo
- * \return int
+ * \return int error? si[1], no[0]
  *
  */
 int employee_getId(Employee* this,int* id);
@@ -73,7 +73,7 @@ int employee_getId(Employee* this,int* id);
  * Set del nombre del empleado
  * \param this Employee*  puntero al empleado
  * \param nombre char* nombre
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_setNombre(Employee* this,char* nombre);
@@ -81,7 +81,7 @@ int employee_setNombre(Employee* this,char* nombre);
  * Obtiene el nombre del empleado
  * \param this Employee* puntero al empleado
  * \param nombre char* variable donde se alojara el nombre del empleado
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_getNombre(Employee* this,char* nombre);
@@ -90,7 +90,7 @@ int employee_getNombre(Employee* this,char* nombre);
  * set horas trabajadas
  * \param this Employee* puntero al empleado
  * \param horasTrabajadas int horas trabajadas
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas);
@@ -98,7 +98,7 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas);
  * Obtiene las horas trabajadas del empleado
  * \param this Employee* punteor al empleado
  * \param horasTrabajadas int* variable donde se alojara las horas trabajadas
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas);
@@ -107,7 +107,7 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas);
  * Set sueldo empleado
  * \param this Employee*  puntero al empleado
  * \param sueldo int sueldo empleado
- * \return int resultado
+ * \return int error? si[1], no[0]
  *
  */
 int employee_setSueldo(Employee* this,int sueldo);
@@ -116,7 +116,7 @@ int employee_setSueldo(Employee* this,int sueldo);
  * Get sueldo empleaod
  * \param this Employee* puntero al empleado
  * \param sueldo int* variable donde se alojara el sueldo
- * \return int
+ * \return int error? si[1], no[0]
  *
  */
 int employee_getSueldo(Employee* this,int* sueldo);
